@@ -34,7 +34,12 @@ class MainActivity : BaseActivity(R.layout.activity_main) {
     override fun setListeners() {
         navView.setOnNavigationItemSelectedListener { item ->
             if (!item.isChecked) {
-
+                when (item.itemId) {
+                    R.id.navigation_home->presenter.openHomeScreen()
+                    R.id.navigation_lessons->presenter.openLessonsScreen()
+                    R.id.navigation_tests->presenter.openTestsScreen()
+                    R.id.navigation_dictionary->presenter.openDictionaryScreen()
+                }
             }
             true
         }
