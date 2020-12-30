@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">IT Lingua</string>
+
+    <string name="title_home">Главная</string>
+    <string name="title_lessons">Уроки</string>
+    <string name="title_tests">Тесты</string>
+    <string name="title_dictionary">Словарь</string>
+</resources>

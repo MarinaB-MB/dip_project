@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.deadely.it_lingua.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_lessons"
+            app:destination="@id/navigation_lessons" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_lessons"
+        android:name="com.deadely.it_lingua.ui.lessons.LessonsFragment"
+        android:label="@string/title_lessons"
+        tools:layout="@layout/fragment_lessons" >
+        <action
+            android:id="@+id/action_navigation_lessons_to_navigation_tests"
+            app:destination="@id/navigation_tests" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_tests"
+        android:name="com.deadely.it_lingua.ui.tests.TestsFragment"
+        android:label="@string/title_tests"
+        tools:layout="@layout/fragment_tests" >
+        <action
+            android:id="@+id/action_navigation_tests_to_navigation_dictionary"
+            app:destination="@id/navigation_dictionary" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_dictionary"
+        android:name="com.deadely.it_lingua.ui.dictionary.DictionaryFragment"
+        android:label="@string/title_dictionary"
+        tools:layout="@layout/fragment_dictionary" />
+</navigation>
