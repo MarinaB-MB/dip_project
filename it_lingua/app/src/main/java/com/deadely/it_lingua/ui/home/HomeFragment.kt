@@ -2,8 +2,16 @@ package com.deadely.it_lingua.ui.home
 
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import moxy.ktx.moxyPresenter
+import javax.inject.Inject
+import javax.inject.Provider
 
-class HomeFragment : BaseFragment(R.layout.fragment_home) {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
+    @Inject
+    lateinit var provider: Provider<HomePresenter>
+    private val presenter by moxyPresenter { provider.get() }
     override fun initView() {
     }
 
@@ -14,10 +22,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     }
 
     override fun onBackButtonPressed() {
-
+        presenter.exit()
     }
 
     override fun exitPressed() {
-
+        presenter.exit()
     }
 }

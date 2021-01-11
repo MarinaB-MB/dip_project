@@ -25,6 +25,5 @@ class SplashActivity : BaseActivity(R.layout.activity_splash) {
     override fun setListeners() { }
 
     override fun getExtras() {
-
     }
 }

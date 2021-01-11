@@ -21,13 +21,13 @@ object Screens {
     const val LESSONS_SCREEN = "lessons_screen"
     const val TESTS_SCREEN = "tests_screen"
 
-    fun getScreenByKey(screenKey: String?, data: Any? = null): Screen? = when (screenKey) {
+    fun getScreenByKey(screenKey: String?, data: Any? = null): Screen = when (screenKey) {
         SPLASH_SCREEN -> ActivityScreen { Intent(it, SplashActivity::class.java) }
         MAIN_SCREEN -> ActivityScreen { Intent(it, MainActivity::class.java) }
         DICTIONARY_SCREEN -> FragmentScreen { DictionaryFragment() }
         HOME_SCREEN -> FragmentScreen { HomeFragment() }
         LESSONS_SCREEN -> FragmentScreen { LessonsFragment() }
         TESTS_SCREEN -> FragmentScreen { TestsFragment() }
-        else -> null
+        else -> throw Exception("Unknown key of fragment")
     }
 }

@@ -2,9 +2,16 @@ package com.deadely.it_lingua.ui.tests
 
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
+import moxy.ktx.moxyPresenter
+import javax.inject.Inject
+import javax.inject.Provider
 
-class TestsFragment : BaseFragment(R.layout.fragment_tests) {
-
+@AndroidEntryPoint
+class TestsFragment : BaseFragment(R.layout.fragment_tests), TestsView {
+    @Inject
+    lateinit var provider: Provider<TestsPresenter>
+    private val presenter by moxyPresenter { provider.get() }
     override fun initView() {
     }
 
@@ -15,8 +22,10 @@ class TestsFragment : BaseFragment(R.layout.fragment_tests) {
     }
 
     override fun onBackButtonPressed() {
+        presenter.exit()
     }
 
     override fun exitPressed() {
+        presenter.exit()
     }
 }

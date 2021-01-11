@@ -1,7 +1,6 @@
 package com.deadely.it_lingua.base
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.deadely.it_lingua.R
 import com.github.terrakok.cicerone.Navigator
@@ -84,7 +83,6 @@ abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseVie
     interface BackButtonPressed {
         fun onBackButtonPressed()
     }
-
 
     interface ExitListener {
         fun exitPressed()
