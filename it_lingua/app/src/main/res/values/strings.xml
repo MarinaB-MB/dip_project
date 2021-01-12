@@ -5,4 +5,6 @@
     <string name="title_lessons">Уроки</string>
     <string name="title_tests">Тесты</string>
     <string name="title_dictionary">Словарь</string>
+    <string name="hint">Поиск</string>
+    <string name="title_favorites">Избранное</string>
 </resources>

@@ -136,5 +136,5 @@ dependencies {
     implementation 'com.github.markomilos:paginate:1.0.0'
 
     //bottom nav
-    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.2.0'
+//    implementation 'com.ashokvarma.android:bottom-navigation-bar:2.2.0'
 }

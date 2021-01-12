@@ -7,13 +7,14 @@ import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import moxy.MvpAppCompatActivity
 import javax.inject.Inject
 
 abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseView {
     @Inject
     lateinit var router: Router
-
+    var btmNavView: BottomNavigationView? = null
     @Inject
     lateinit var navigationHolder: NavigatorHolder
 
@@ -59,15 +60,18 @@ abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseVie
             childFm?.let {
                 if (it.backStackEntryCount > 0) {
                     (childFragment as BackButtonPressed).onBackButtonPressed()
+                    btmNavView?.menu?.getItem(0)?.isChecked = true
                     return
                 } else {
                     (childFragment as ExitListener).exitPressed()
+                    btmNavView?.menu?.getItem(0)?.isChecked = true
                     return
                 }
             }
         } else {
             if (fragment != null && fragment is BackButtonPressed) {
                 (fragment as BackButtonPressed).onBackButtonPressed()
+                btmNavView?.menu?.getItem(0)?.isChecked = true
                 return
             } else {
                 router.exit()

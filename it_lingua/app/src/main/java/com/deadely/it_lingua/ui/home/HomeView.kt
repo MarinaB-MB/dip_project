@@ -1,5 +1,10 @@
 package com.deadely.it_lingua.ui.home
 
 import com.deadely.it_lingua.base.BaseView
+import moxy.viewstate.strategy.SkipStrategy
+import moxy.viewstate.strategy.StateStrategyType
 
-interface HomeView : BaseView
+@StateStrategyType(SkipStrategy::class)
+interface HomeView : BaseView{
+    fun showConnect()
+}
