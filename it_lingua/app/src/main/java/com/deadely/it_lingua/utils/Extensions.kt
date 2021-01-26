@@ -6,6 +6,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 
 fun View.makeGone() {
     visibility = View.GONE
@@ -23,12 +24,18 @@ fun Fragment.setActivityTitle(title: String) {
     (activity as? AppCompatActivity)?.supportActionBar?.title = title
 }
 
-fun hideKeyboard(activity: Activity) {
-    val inputMethodManager = activity.getSystemService(
+fun Activity.hideKeyboard() {
+    val inputMethodManager = this.getSystemService(
         Activity.INPUT_METHOD_SERVICE
     ) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(
-        activity.currentFocus?.windowToken, 0
+        this.currentFocus?.windowToken, 0
     )
+    this.currentFocus?.clearFocus()
 }
+
+fun View.snack(text: String) {
+    Snackbar.make(this, text, Snackbar.LENGTH_LONG).show()
+}
+
 

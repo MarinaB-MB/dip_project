@@ -15,6 +15,7 @@ abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseVie
     @Inject
     lateinit var router: Router
     var btmNavView: BottomNavigationView? = null
+
     @Inject
     lateinit var navigationHolder: NavigatorHolder
 
@@ -71,7 +72,7 @@ abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseVie
         } else {
             if (fragment != null && fragment is BackButtonPressed) {
                 (fragment as BackButtonPressed).onBackButtonPressed()
-                btmNavView?.menu?.getItem(0)?.isChecked = true
+//                btmNavView?.menu?.getItem(0)?.isChecked = true
                 return
             } else {
                 router.exit()

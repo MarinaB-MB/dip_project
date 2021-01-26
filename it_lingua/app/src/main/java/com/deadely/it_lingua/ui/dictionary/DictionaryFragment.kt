@@ -7,17 +7,20 @@ import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.base.BaseFragment
+import com.deadely.it_lingua.databinding.FragmentDictionaryBinding
 import com.deadely.it_lingua.model.Word
 import com.deadely.it_lingua.utils.makeGone
 import com.deadely.it_lingua.utils.makeVisible
 import com.deadely.it_lingua.utils.setActivityTitle
+import com.deadely.it_lingua.utils.snack
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_dictionary.*
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider
+
 
 @AndroidEntryPoint
 class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), DictionaryView {
@@ -26,6 +29,15 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
     private val presenter by moxyPresenter { provider.get() }
     private val wordsAdapter = WordsAdapter()
     private var isChecked = false
+    private val viewBinding by viewBinding(
+        FragmentDictionaryBinding::bind
+    )
+    private lateinit var favoriteMenuItem: MenuItem
+
+    companion object {
+        fun newInstance() = DictionaryFragment()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -57,19 +69,20 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.dictionary_menu, menu)
         val menuItemSearch = menu.findItem(R.id.mnu_search)
-        val menuItemFavorite = menu.findItem(R.id.mnu_favorite)
+        favoriteMenuItem = menu.findItem(R.id.mnu_favorite)
+        favoriteMenuItem.isVisible = false
         menuItemSearch.apply { setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_ALWAYS) }
         val searchView = menuItemSearch.actionView as SearchView
         menuItemSearch.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
             override fun onMenuItemActionExpand(item: MenuItem?): Boolean {
-                menuItemFavorite.isVisible = false
+                favoriteMenuItem.isVisible = false
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 clearList()
                 presenter.getList()
-                menuItemFavorite.isVisible = true
+                favoriteMenuItem.isVisible = true
                 return true
             }
         })
@@ -78,7 +91,7 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
                 object : SearchView.OnQueryTextListener {
                     override fun onQueryTextSubmit(p0: String?): Boolean {
                         presenter.searchQuery(p0)
-                        rvWords.smoothScrollToPosition(0)
+                        viewBinding.rvWords.smoothScrollToPosition(0)
                         searchView.clearFocus()
                         return false
                     }
@@ -89,10 +102,6 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
                 }
             )
         }
-    }
-
-    override fun clearList() {
-        wordsAdapter.setData(listOf())
     }
 
     override fun setListeners() {
@@ -108,21 +117,48 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
             override fun onItemClick(word: Word) {
             }
         })
-        rvWords.apply {
+        viewBinding.rvWords.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = wordsAdapter
         }
     }
 
+    override fun clearList() {
+        wordsAdapter.setData(listOf())
+    }
+
     override fun setWordList(list: List<Word>) {
-        if (list.isEmpty()) {
-            ivEmptyList.makeVisible()
-            rvWords.makeGone()
-        } else {
-            ivEmptyList.makeGone()
-            rvWords.makeVisible()
+        with(viewBinding) {
+            if (list.isEmpty()) {
+                ivEmptyList.makeVisible()
+                rvWords.makeGone()
+            } else {
+                ivEmptyList.makeGone()
+                rvWords.makeVisible()
+            }
+            wordsAdapter.setData(list)
         }
-        wordsAdapter.setData(list)
+    }
+
+    override fun showProgress(isShow: Boolean) {
+        if (isShow) {
+            viewBinding.apply {
+                pvLoad.makeVisible()
+                rvWords.makeGone()
+                ivEmptyList.makeGone()
+            }
+        } else {
+            viewBinding.apply {
+                pvLoad.makeGone()
+                rvWords.makeVisible()
+                ivEmptyList.makeGone()
+                favoriteMenuItem.isVisible = true
+            }
+        }
+    }
+
+    override fun showError(error: String) {
+        viewBinding.nsvDictionaryContainer.snack(error)
     }
 
     override fun getExtras() {

@@ -21,6 +21,7 @@ class MainActivity :
 
     override fun initView() {
         btmNavView = navView
+        presenter.openHomeScreen()
     }
 
     override fun getExtras() {

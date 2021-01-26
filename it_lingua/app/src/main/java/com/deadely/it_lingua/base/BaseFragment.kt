@@ -8,6 +8,7 @@ abstract class BaseFragment(layout: Int) :
     MvpAppCompatFragment(layout),
     BaseActivity.BackButtonPressed,
     BaseActivity.ExitListener {
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getExtras()

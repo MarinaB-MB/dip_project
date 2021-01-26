@@ -1,8 +1,5 @@
 package com.deadely.it_lingua.ui.lessons
 
-import android.os.Build
-import android.text.Html.FROM_HTML_MODE_COMPACT
-import android.text.Html.fromHtml
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,21 +33,17 @@ class LessonsAdapter : RecyclerView.Adapter<LessonsViewHolder>() {
     )
 
     override fun onBindViewHolder(holder: LessonsViewHolder, position: Int) =
-        holder.bind(list[position])
+        holder.bind(list[position], position)
 
     override fun getItemCount(): Int = list.size
 
     inner class LessonsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(lesson: Lesson) {
+        fun bind(lesson: Lesson, position: Int) {
             with(itemView) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    tvTitle.text = fromHtml(
-                        lesson.title,
-                        FROM_HTML_MODE_COMPACT
-                    )
-                } else {
-                    tvTitle.text = fromHtml(lesson.title)
+                if (position != 0 && !list[position - 1].isChecked) {
+                    isEnabled = false
                 }
+                tvTitle.text = lesson.title
                 if (lesson.isChecked) {
                     ivChecked.setImageResource(R.drawable.ic_baseline_check_24_green)
                 } else {

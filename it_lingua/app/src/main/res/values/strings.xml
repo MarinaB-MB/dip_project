@@ -7,4 +7,27 @@
     <string name="title_dictionary">Словарь</string>
     <string name="hint">Поиск</string>
     <string name="title_favorites">Избранное</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="incorrect_email_error">Введите корректный email</string>
+    <string name="incorrect_password_max_length_error">Длина пароля превышает максимальное значение</string>
+    <string name="incorrect_password_min_length_error">Длина пароля меньше минимального значения</string>
+    <string name="next">Далее</string>
+    <string name="empty_value_error">Введите значение</string>
+    <string name="incorrect_user_error">Такого пользователя не существует</string>
+    <string name="unexpected_error">Возникла ошибка. Попробуйте позже</string>
+    <string name="internet_connection_error">Проверьте ваше соединение с сетью</string>
+    <string name="email_compare_error">Email не совпадает</string>
+    <string name="password_compare_error">Пароль не совпадает</string>
+    <string name="name">Имя</string>
+    <string name="incorrect_name_length_error">Длина имени не может превышать 16 символов</string>
+    <string name="tests_count_label">Tests Count</string>
+    <string name="already_have_account">Уже есть аккаунт</string>
+    <string name="user_statistic_title">Статистика пользователя</string>
+    <string name="checked_lessons_count_label">Количество пройденных уроков</string>
+    <string name="checked_words_count_label">Количество пройденных тестов</string>
+    <string name="saved_successfully">Добавлено в избранное</string>
+    <string name="saved_error">Произошла ошибка при добавлении в избранное</string>
+    <string name="deleting_error">Произошла ошибка при удалении из избранного</string>
+    <string name="deleting_successfully">Удалено из избранного</string>
 </resources>

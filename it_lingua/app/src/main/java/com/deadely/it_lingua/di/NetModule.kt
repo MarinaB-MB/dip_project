@@ -1,10 +1,12 @@
 package com.deadely.it_lingua.di
 
 import android.content.Context
-import com.deadely.it_lingua.network.ApiService
+import com.deadely.it_lingua.network.AuthInterceptor
+import com.deadely.it_lingua.network.RestService
 import com.deadely.it_lingua.utils.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import com.readystatesoftware.chuck.ChuckInterceptor
 import dagger.Module
 import dagger.Provides
@@ -26,15 +28,19 @@ object NetModule {
     fun provideRetrofit(client: OkHttpClient, gson: Gson): Retrofit.Builder =
         Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson)).client(client)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
     @Singleton
     @Provides
     fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient =
-        OkHttpClient.Builder().addInterceptor(
-            HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            }
-        ).addInterceptor(ChuckInterceptor(context))
+        OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor())
+            .addInterceptor(
+                HttpLoggingInterceptor().apply {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
+            )
+            .addInterceptor(ChuckInterceptor(context))
             .callTimeout(20, TimeUnit.SECONDS).readTimeout(20, TimeUnit.SECONDS).build()
 
     @Singleton
@@ -43,6 +49,6 @@ object NetModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit.Builder): ApiService =
-        retrofit.build().create(ApiService::class.java)
+    fun provideUsersService(retrofit: Retrofit.Builder): RestService =
+        retrofit.build().create(RestService::class.java)
 }

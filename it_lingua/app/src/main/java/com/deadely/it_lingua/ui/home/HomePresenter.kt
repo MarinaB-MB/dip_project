@@ -8,9 +8,15 @@ import javax.inject.Inject
 @InjectViewState
 class HomePresenter @Inject constructor(private val repository: Repository) :
     BasePresenter<HomeView>() {
+
     override fun onFirstViewAttach() {
-        viewState.showConnect()
+        getUser()
     }
+
+    private fun getUser() {
+        viewState.setUserData(repository.getActiveUser())
+    }
+
     fun exit() {
         router.exit()
     }

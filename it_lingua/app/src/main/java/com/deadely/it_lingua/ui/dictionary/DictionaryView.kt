@@ -9,4 +9,6 @@ import moxy.viewstate.strategy.StateStrategyType
 interface DictionaryView : BaseView {
     fun setWordList(list: List<Word>)
     fun clearList()
+    fun showError(error: String)
+    fun showProgress(isShow: Boolean)
 }

@@ -6,4 +6,5 @@ import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(SkipStrategy::class)
 interface LessonDetailView : BaseView {
+    fun showProgress(isShow: Boolean)
 }

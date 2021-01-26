@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
-    android:padding="10dp">
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_lesson_item"
+    android:paddingHorizontal="@dimen/activity_horizontal_margin"
+    android:paddingVertical="10dp">
 
     <TextView
         android:id="@+id/tvTitle"
@@ -13,7 +15,7 @@
         android:overScrollMode="never"
         android:paddingVertical="10dp"
         android:textColor="@color/black"
-        tools:text="Title _ 1" />
+        tools:text="Title 1" />
 
     <ImageView
         android:id="@+id/ivChecked"
