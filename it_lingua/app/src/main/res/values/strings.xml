@@ -30,4 +30,6 @@
     <string name="saved_error">Произошла ошибка при добавлении в избранное</string>
     <string name="deleting_error">Произошла ошибка при удалении из избранного</string>
     <string name="deleting_successfully">Удалено из избранного</string>
+    <string name="congrats">Поздравляем</string>
+    <string name="end_test_confirm_title">Вы уверены, что хотите выйти?</string>
 </resources>

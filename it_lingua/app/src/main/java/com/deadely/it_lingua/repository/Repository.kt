@@ -5,6 +5,7 @@ import com.deadely.it_lingua.database.dao.UserDao
 import com.deadely.it_lingua.model.*
 import com.deadely.it_lingua.network.RestService
 import io.reactivex.Single
+import org.json.JSONObject
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -27,7 +28,7 @@ class Repository @Inject constructor(
         return api.deleteUserById(id)
     }
 
-    fun updateUser(id: String, put: User): User {
+    fun updateUser(id: String, put: User): Single<User> {
         return api.updateUser(id, put)
     }
 
@@ -47,27 +48,20 @@ class Repository @Inject constructor(
         ud.setActiveUser(user)
     }
 
-    fun getLessons(): Single<List<Lesson>> {
-        return api.getLessons()
-    }
+    fun getLessons(): Single<List<Lesson>> = api.getLessons()
+    fun getWords(): Single<List<Word>> = api.getWords()
 
-    fun getWords(): Single<List<Word>> {
-        return api.getWords()
-    }
-
-    fun addToFavoriteWords(word: Word) {
-        return dd.addWord(word)
-    }
+    fun addToFavoriteWords(word: Word) = dd.addWord(word)
 
     fun deleteFromFavoritesWords(word: Word) {
         return dd.deleteWord(word)
     }
 
-    fun getTests(): Single<List<Test>> {
-        return api.getTests()
-    }
+    fun getTests(): Single<List<Test>> = api.getTests()
 
-    fun getFavoritesWords(): Single<List<Word>> {
-        return dd.getWords()
-    }
+    fun getFavoritesWords(): Single<List<Word>> = dd.getWords()
+
+//    fun updateUsersStat(id: String, stats: JSONObject): Single<User> = api.updateUsersStat(id, stats
+
+    fun createStat(stat: StatCreateBody): Single<Stat> = api.createStat(stat)
 }

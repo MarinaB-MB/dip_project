@@ -3,6 +3,7 @@ package com.deadely.it_lingua.network
 import com.deadely.it_lingua.model.*
 import com.deadely.it_lingua.utils.*
 import io.reactivex.Single
+import org.json.JSONObject
 import retrofit2.http.*
 
 interface RestService {
@@ -22,7 +23,13 @@ interface RestService {
     fun updateUser(
         @Path(OBJECT_ID) id: String,
         @Body put: User
-    ): User
+    ): Single<User>
+
+    @PUT(UPDATE_USER)
+    fun updateUsersStat(
+        @Path(OBJECT_ID) id: String,
+        @Body stats: JSONObject
+    ): Single<User>
 
     @GET(GET_WORDS)
     fun getWords(): Single<List<Word>>
@@ -32,4 +39,7 @@ interface RestService {
 
     @GET(GET_TESTS)
     fun getTests(): Single<List<Test>>
+
+    @POST(CREATE_STAT)
+    fun createStat(@Body stat: StatCreateBody): Single<Stat>
 }

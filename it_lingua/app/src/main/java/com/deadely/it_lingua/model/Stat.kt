@@ -9,13 +9,19 @@ import com.deadely.it_lingua.utils.STAT_ID
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-
 @Entity(tableName = STATS)
 @Parcelize
 data class Stat(
     @ColumnInfo(name = STAT_ID)
     @PrimaryKey
     @SerializedName("_id") val id: String,
+    @SerializedName("date") val date: String,
+    @SerializedName("count_tests") val countTests: Int,
+    @SerializedName("count_lessons") val countLessons: Int,
+) : Parcelable
+
+@Parcelize
+data class StatCreateBody(
     @SerializedName("date") val date: String,
     @SerializedName("count_tests") val countTests: Int,
     @SerializedName("count_lessons") val countLessons: Int,

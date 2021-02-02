@@ -24,9 +24,6 @@ class MainActivity :
         presenter.openHomeScreen()
     }
 
-    override fun getExtras() {
-    }
-
     override fun setListeners() {
         navView.setOnNavigationItemSelectedListener { item ->
             if (!item.isChecked) {

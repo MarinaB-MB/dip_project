@@ -5,7 +5,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.deadely.it_lingua.R
-import com.deadely.it_lingua.base.BaseActivity
 import com.deadely.it_lingua.base.BaseFragment
 import com.deadely.it_lingua.databinding.FragmentLessonDetailBinding
 import com.deadely.it_lingua.model.Lesson
@@ -22,9 +21,7 @@ import javax.inject.Provider
 @AndroidEntryPoint
 class LessonDetailFragment :
     BaseFragment(R.layout.fragment_lesson_detail),
-    LessonDetailView,
-    BaseActivity.ExitListener,
-    BaseActivity.BackButtonPressed {
+    LessonDetailView {
     private val viewBinding by viewBinding(
         FragmentLessonDetailBinding::bind
     )

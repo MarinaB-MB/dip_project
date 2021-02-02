@@ -21,7 +21,6 @@ import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider
 
-
 @AndroidEntryPoint
 class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), DictionaryView {
     @Inject

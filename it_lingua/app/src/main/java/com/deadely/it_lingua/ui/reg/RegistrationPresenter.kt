@@ -33,11 +33,10 @@ class RegistrationPresenter @Inject constructor(
         super.onFirstViewAttach()
         repository.getActiveUser()?.let {
             isRegMode = false
-            viewState.showRegistrationMode(isRegMode)
         } ?: run {
             isRegMode = true
-            viewState.showRegistrationMode(isRegMode)
         }
+        viewState.initView(isRegMode)
     }
 
     private fun openMainScreen() {
@@ -157,6 +156,6 @@ class RegistrationPresenter @Inject constructor(
 
     fun changeMode() {
         isRegMode = !isRegMode
-        viewState.showRegistrationMode(isRegMode)
+        viewState.initView(isRegMode)
     }
 }

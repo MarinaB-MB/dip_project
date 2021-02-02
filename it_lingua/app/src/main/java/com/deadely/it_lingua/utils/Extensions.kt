@@ -7,6 +7,10 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.Observable
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 fun View.makeGone() {
     visibility = View.GONE
@@ -38,4 +42,5 @@ fun View.snack(text: String) {
     Snackbar.make(this, text, Snackbar.LENGTH_LONG).show()
 }
 
-
+fun <T> Single<T>.subscribeAndObserve(): Single<T> =
+    subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())

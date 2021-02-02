@@ -15,7 +15,6 @@ import javax.inject.Provider
 @AndroidEntryPoint
 class RegistrationActivity :
     BaseActivity(R.layout.activity_registration),
-    BaseActivity.ExitListener,
     BaseActivity.BackButtonPressed,
     RegistrationView {
     @Inject
@@ -27,21 +26,15 @@ class RegistrationActivity :
     )
 
     var isRegMode = false
-        set(value) {
-            field = value
-            initView()
-        }
 
-    override fun initView() {
+    override fun initView(regMode: Boolean) {
+        isRegMode = regMode
         supportActionBar?.hide()
         if (isRegMode) {
             tilName.makeVisible()
         } else {
             tilName.makeGone()
         }
-    }
-
-    override fun getExtras() {
     }
 
     override fun setListeners() {
@@ -91,10 +84,6 @@ class RegistrationActivity :
         }
     }
 
-    override fun showRegistrationMode(isRegistrationMode: Boolean) {
-        isRegMode = isRegistrationMode
-    }
-
     override fun setNameError(error: String?) {
         viewBinding.tilName.error = error
     }
@@ -112,10 +101,6 @@ class RegistrationActivity :
     }
 
     override fun onBackButtonPressed() {
-        presenter.exit()
-    }
-
-    override fun exitPressed() {
         presenter.exit()
     }
 }

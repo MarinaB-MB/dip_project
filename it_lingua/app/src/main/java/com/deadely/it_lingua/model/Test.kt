@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class Test(
     @SerializedName("_id") val id: String,
     @SerializedName("title") val title: String,
-    @SerializedName("asks") val asks: Ask,
+    @SerializedName("asks") val asks: List<Ask>,
     var isChecked: Boolean = false
 ) : Parcelable
 
@@ -19,12 +19,5 @@ data class Ask(
     @SerializedName("image") val image: String = "",
     @SerializedName("is_svg") val isSvg: Boolean = false,
     @SerializedName("number") val number: Int = -1,
-    @SerializedName("answers") val answer: List<Answer> = listOf()
-) : Parcelable
-
-@Parcelize
-data class Answer(
-    @SerializedName("_id") val id: String,
-    @SerializedName("answer") val answer: String,
-    @SerializedName("right") val right: Boolean
+    @SerializedName("answers") val answers: String = ""
 ) : Parcelable

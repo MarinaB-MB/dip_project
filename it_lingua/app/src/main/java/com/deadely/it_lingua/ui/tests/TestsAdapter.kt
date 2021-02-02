@@ -40,6 +40,9 @@ class TestsAdapter : RecyclerView.Adapter<TestsAdapter.TestsViewHolder>() {
     inner class TestsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(test: Test) {
             with(itemView) {
+                if (position != 0 && !list[position - 1].isChecked) {
+                    isEnabled = false
+                }
                 tvTitle.text = test.title
                 if (test.isChecked) {
                     ivChecked.setImageResource(R.drawable.ic_baseline_check_24_green)

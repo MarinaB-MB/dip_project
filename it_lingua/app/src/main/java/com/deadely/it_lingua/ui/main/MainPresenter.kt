@@ -10,6 +10,10 @@ import javax.inject.Inject
 class MainPresenter @Inject constructor(
     private val repository: Repository
 ) : BasePresenter<MainView>() {
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        viewState.initView()
+    }
 
     fun openHomeScreen() {
         router.replaceScreen(Screens.HOME_SCREEN())

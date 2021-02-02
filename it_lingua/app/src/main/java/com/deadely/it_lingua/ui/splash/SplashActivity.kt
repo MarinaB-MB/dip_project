@@ -8,14 +8,14 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 @AndroidEntryPoint
-class SplashActivity : BaseActivity(R.layout.activity_splash) {
+class SplashActivity : BaseActivity(R.layout.activity_splash), SplashView {
     @Inject
     lateinit var provider: Provider<SplashPresenter>
     private val presenter by moxyPresenter { provider.get() }
 
-    override fun initView() {
+    override fun initView(isUserActive: Boolean) {
         supportActionBar?.hide()
-        if (presenter.isUserActive()) {
+        if (isUserActive) {
             presenter.openMainScreen()
         } else {
             presenter.openRegScreen()
@@ -23,7 +23,4 @@ class SplashActivity : BaseActivity(R.layout.activity_splash) {
     }
 
     override fun setListeners() {}
-
-    override fun getExtras() {
-    }
 }

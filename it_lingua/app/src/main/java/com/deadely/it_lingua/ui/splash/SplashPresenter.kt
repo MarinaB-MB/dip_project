@@ -9,7 +9,12 @@ import javax.inject.Inject
 @InjectViewState
 class SplashPresenter @Inject constructor(private val ud: UserDao) : BasePresenter<SplashView>() {
 
-    fun isUserActive() = ud.getActiveUser()?.active ?: run { false }
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+        viewState.initView(isUserActive())
+    }
+
+    private fun isUserActive() = ud.getActiveUser()?.active ?: run { false }
 
     fun openMainScreen() {
         router.newRootScreen(Screens.MAIN_SCREEN())

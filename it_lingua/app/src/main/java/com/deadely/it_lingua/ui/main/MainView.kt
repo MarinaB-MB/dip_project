@@ -5,4 +5,6 @@ import moxy.viewstate.strategy.SkipStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(SkipStrategy::class)
-interface MainView : BaseView
+interface MainView : BaseView {
+    fun initView()
+}

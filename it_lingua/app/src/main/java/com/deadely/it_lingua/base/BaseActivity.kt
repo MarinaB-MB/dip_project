@@ -3,6 +3,7 @@ package com.deadely.it_lingua.base
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.deadely.it_lingua.R
+import com.deadely.it_lingua.ui.lessons.lessondetail.LessonDetailFragment
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -32,9 +33,7 @@ abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseVie
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getExtras()
         setListeners()
-        initView()
     }
 
     override fun onBackPressed() {
@@ -72,21 +71,28 @@ abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseVie
         } else {
             if (fragment != null && fragment is BackButtonPressed) {
                 (fragment as BackButtonPressed).onBackButtonPressed()
-//                btmNavView?.menu?.getItem(0)?.isChecked = true
+                if (fragment !is LessonDetailFragment)
+                    btmNavView?.menu?.getItem(0)?.isChecked = true
                 return
             } else {
-                router.exit()
+                if (this is ExitPressedListener) {
+                    exit()
+                } else {
+                    router.exit()
+                }
                 return
             }
         }
     }
 
-    abstract fun initView()
-    abstract fun getExtras()
     abstract fun setListeners()
 
     interface BackButtonPressed {
         fun onBackButtonPressed()
+    }
+
+    interface ExitPressedListener {
+        fun exit()
     }
 
     interface ExitListener {

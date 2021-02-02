@@ -3,6 +3,7 @@ package com.deadely.it_lingua.ui.tests
 import com.deadely.it_lingua.base.BasePresenter
 import com.deadely.it_lingua.model.Test
 import com.deadely.it_lingua.navigation.Screens
+import com.deadely.it_lingua.navigation.Screens.TEST_DETAIL_SCREEN
 import com.deadely.it_lingua.repository.Repository
 import com.deadely.it_lingua.utils.ErrorUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,13 +19,19 @@ class TestsPresenter @Inject constructor(private val repository: Repository) :
     }
 
     private fun getApiTests() {
+        viewState.showProgress(true)
         repository.getTests().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { data ->
                     val sortedList = data.sortedBy { it.title }
                     setCheckMarkList(sortedList)
                 },
-                { e -> ErrorUtils.proceed(e) { viewState.showError(it) } }
+                { e ->
+                    ErrorUtils.proceed(e) {
+                        viewState.showProgress(false)
+                        viewState.showError(it)
+                    }
+                }
             )
     }
 
@@ -42,6 +49,6 @@ class TestsPresenter @Inject constructor(private val repository: Repository) :
     }
 
     fun openDetailTest(test: Test) {
-        // OPEN ACTIVITY
+        router.navigateTo(TEST_DETAIL_SCREEN(test))
     }
 }

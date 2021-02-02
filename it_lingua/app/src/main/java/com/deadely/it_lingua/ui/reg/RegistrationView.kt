@@ -9,6 +9,6 @@ interface RegistrationView : BaseView {
     fun setEmailError(error: String?)
     fun setPasswordError(error: String?)
     fun showError(error: String)
-    fun showRegistrationMode(isRegistrationMode: Boolean)
     fun setNameError(error: String?)
+    fun initView(regMode: Boolean)
 }

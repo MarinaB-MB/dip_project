@@ -17,7 +17,7 @@ data class User(
     @SerializedName("_id") val id: String,
     @SerializedName("email") val email: String,
     @SerializedName("password") val password: String,
-    @SerializedName("stats") val stats: List<Stat?>?,
+    @SerializedName("stats") var stats: List<Stat?>?,
     @SerializedName("active") var active: Boolean,
     @SerializedName("name") val name: String
 ) : Parcelable
