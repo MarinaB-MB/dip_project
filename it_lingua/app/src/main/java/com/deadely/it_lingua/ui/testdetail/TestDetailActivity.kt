@@ -13,8 +13,11 @@ import com.deadely.it_lingua.base.BaseActivity
 import com.deadely.it_lingua.databinding.ActivityTestDetailBinding
 import com.deadely.it_lingua.model.Ask
 import com.deadely.it_lingua.utils.TEST
+import com.deadely.it_lingua.utils.makeGone
+import com.deadely.it_lingua.utils.makeVisible
 import com.deadely.it_lingua.utils.snack
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_tests.*
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
 import javax.inject.Provider
@@ -59,6 +62,9 @@ class TestDetailActivity :
             setCanceledOnTouchOutside(false)
             findViewById<TextView>(R.id.tvBad).text = badCount
             findViewById<TextView>(R.id.tvGood).text = goodCount
+            if (badCount > goodCount) {
+                findViewById<TextView>(R.id.tvTitle).text = getString(R.string.unfortunately)
+            }
             findViewById<ImageView>(R.id.ivClose).setOnClickListener { dismiss() }
             setOnDismissListener {
                 presenter.exit()
@@ -75,6 +81,20 @@ class TestDetailActivity :
         }
         dialogView.findViewById<Button>(R.id.btnNo).setOnClickListener {
             builder.dismiss()
+        }
+    }
+
+    override fun blockButtons() {
+        viewBinding.llAnswers.children.forEach { (it as TextView).isEnabled = false }
+    }
+
+    override fun showProgress(isShow: Boolean) {
+        if (isShow) {
+            viewBinding.pvLoad.makeVisible()
+            viewBinding.rlContent.makeGone()
+        } else {
+            viewBinding.pvLoad.makeGone()
+            viewBinding.rlContent.makeVisible()
         }
     }
 

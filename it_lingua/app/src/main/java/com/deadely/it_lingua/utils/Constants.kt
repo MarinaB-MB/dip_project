@@ -10,6 +10,7 @@ const val USER_ID = "user_id"
 const val DICTIONARY_ID = "dictionary_id"
 const val LESSON_ID = "lesson_id"
 
+const val TEST_RESULT = "test_result"
 const val TITLE_LESSON_DETAIL = "title_lesson_detail"
 const val TEST = "test"
 

@@ -8,7 +8,7 @@ import retrofit2.http.*
 
 interface RestService {
     @GET(GET_USER)
-    fun getUserById(@Path(ID) id: String): User
+    fun getUserById(@Path(ID) id: String): Single<User>
 
     @GET(GET_USER_BY_EMAIL)
     fun getUserByEmail(@Query(QUERY) query: String): Single<List<User>>

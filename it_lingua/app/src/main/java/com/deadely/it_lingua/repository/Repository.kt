@@ -16,7 +16,7 @@ class Repository @Inject constructor(
 
     // api
 
-    fun getUserById(id: String): User {
+    fun getUserById(id: String): Single<User> {
         return api.getUserById(id)
     }
 
