@@ -11,8 +11,10 @@ const val DICTIONARY_ID = "dictionary_id"
 const val LESSON_ID = "lesson_id"
 
 const val TEST_RESULT = "test_result"
+const val LESSON_RESULT = "lesson_result"
 const val TITLE_LESSON_DETAIL = "title_lesson_detail"
 const val TEST = "test"
+const val ACCOUNT_RESULT = "account_result"
 
 const val BASE_URL = "https://itldbexample-a04a.restdb.io/rest/"
 const val GET_USER = "users/{id}"
@@ -26,6 +28,8 @@ const val GET_LESSONS = "lesson"
 const val GET_TESTS = "tests"
 
 const val CREATE_STAT = "stat"
+const val UPDATE_STAT = "stat/{objectId}"
+const val GET_STAT_BY_DATE = "stat"
 
 const val OBJECT_ID = "objectId"
 const val EMAIL = "email"

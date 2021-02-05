@@ -3,7 +3,6 @@ package com.deadely.it_lingua.base
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.deadely.it_lingua.R
-import com.deadely.it_lingua.ui.lessons.lessondetail.LessonDetailFragment
 import com.github.terrakok.cicerone.Navigator
 import com.github.terrakok.cicerone.NavigatorHolder
 import com.github.terrakok.cicerone.Router
@@ -71,8 +70,7 @@ abstract class BaseActivity(layout: Int) : MvpAppCompatActivity(layout), BaseVie
         } else {
             if (fragment != null && fragment is BackButtonPressed) {
                 (fragment as BackButtonPressed).onBackButtonPressed()
-                if (fragment !is LessonDetailFragment)
-                    btmNavView?.menu?.getItem(0)?.isChecked = true
+                btmNavView?.menu?.getItem(0)?.isChecked = true
                 return
             } else {
                 if (this is ExitPressedListener) {

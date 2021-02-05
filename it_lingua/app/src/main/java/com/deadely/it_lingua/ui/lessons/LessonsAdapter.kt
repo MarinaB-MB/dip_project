@@ -40,9 +40,7 @@ class LessonsAdapter : RecyclerView.Adapter<LessonsViewHolder>() {
     inner class LessonsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(lesson: Lesson, position: Int) {
             with(itemView) {
-                if (position != 0 && !list[position - 1].isChecked) {
-                    isEnabled = false
-                }
+                isEnabled = !(position != 0 && !list[position - 1].isChecked)
                 tvTitle.text = lesson.title
                 if (lesson.isChecked) {
                     ivChecked.setImageResource(R.drawable.ic_baseline_check_24_green)

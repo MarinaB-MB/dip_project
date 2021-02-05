@@ -10,4 +10,5 @@ interface TestsView : BaseView {
     fun setTestsList(data: List<Test>)
     fun showProgress(isShow: Boolean)
     fun showError(error: String)
+    fun initView()
 }

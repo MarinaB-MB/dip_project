@@ -11,4 +11,5 @@ interface DictionaryView : BaseView {
     fun clearList()
     fun showError(error: String)
     fun showProgress(isShow: Boolean)
+    fun initView()
 }

@@ -80,7 +80,7 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
 
             override fun onMenuItemActionCollapse(item: MenuItem?): Boolean {
                 clearList()
-                presenter.getList()
+                presenter.getApiWords()
                 favoriteMenuItem.isVisible = true
                 return true
             }
@@ -158,9 +158,6 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
 
     override fun showError(error: String) {
         viewBinding.nsvDictionaryContainer.snack(error)
-    }
-
-    override fun getExtras() {
     }
 
     override fun onBackButtonPressed() {

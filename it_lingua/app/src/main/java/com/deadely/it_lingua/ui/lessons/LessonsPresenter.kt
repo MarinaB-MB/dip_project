@@ -5,6 +5,8 @@ import com.deadely.it_lingua.model.Lesson
 import com.deadely.it_lingua.navigation.Screens
 import com.deadely.it_lingua.repository.Repository
 import com.deadely.it_lingua.utils.ErrorUtils
+import com.deadely.it_lingua.utils.LESSON_RESULT
+import com.deadely.it_lingua.utils.subscribeAndObserve
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -15,7 +17,29 @@ class LessonsPresenter @Inject constructor(private val repository: Repository) :
     BasePresenter<LessonsView>() {
 
     override fun onFirstViewAttach() {
+        setResultListeners()
+        viewState.initView()
         getLessons()
+    }
+
+    private fun setResultListeners() {
+        router.setResultListener(LESSON_RESULT) {
+            if ((it as Int) == 1) {
+                updateUserData()
+            }
+        }
+    }
+
+    private fun updateUserData() {
+        val userId = repository.getActiveUser()?.id ?: ""
+        repository.getUserById(userId).subscribeAndObserve().subscribe(
+            { user ->
+                repository.saveActiveUser(user)
+                getLessons()
+                setResultListeners()
+            },
+            { error -> ErrorUtils.proceed(error) { viewState.showError(it) } }
+        )
     }
 
     private fun getLessons() {
@@ -44,6 +68,6 @@ class LessonsPresenter @Inject constructor(private val repository: Repository) :
     }
 
     fun openDetailLesson(lesson: Lesson) {
-        router.navigateTo(Screens.LESSON_DETAIL(lesson))
+        router.navigateTo(Screens.LESSON_DETAIL_SCREEN(lesson))
     }
 }

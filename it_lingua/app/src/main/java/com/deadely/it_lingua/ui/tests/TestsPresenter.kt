@@ -8,8 +8,6 @@ import com.deadely.it_lingua.repository.Repository
 import com.deadely.it_lingua.utils.ErrorUtils
 import com.deadely.it_lingua.utils.TEST_RESULT
 import com.deadely.it_lingua.utils.subscribeAndObserve
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import javax.inject.Inject
 
@@ -22,6 +20,7 @@ class TestsPresenter @Inject constructor(private val repository: Repository) :
                 updateUserData()
             }
         }
+        viewState.initView()
         getApiTests()
     }
 
@@ -38,11 +37,10 @@ class TestsPresenter @Inject constructor(private val repository: Repository) :
 
     private fun getApiTests() {
         viewState.showProgress(true)
-        repository.getTests().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        repository.getTests().subscribeAndObserve()
             .subscribe(
                 { data ->
-                    val sortedList = data.sortedBy { it.title }
-                    setCheckMarkList(sortedList)
+                    setCheckMarkList(data)
                 },
                 { e ->
                     ErrorUtils.proceed(e) {
@@ -53,7 +51,8 @@ class TestsPresenter @Inject constructor(private val repository: Repository) :
             )
     }
 
-    private fun setCheckMarkList(sortedList: List<Test>) {
+    private fun setCheckMarkList(list: List<Test>) {
+        val sortedList = list.sortedBy { it.title }
         val count = repository.getActiveUser()?.stats?.last()?.countLessons ?: 0
         for (i in 0 until count) {
             sortedList[i].isChecked = true

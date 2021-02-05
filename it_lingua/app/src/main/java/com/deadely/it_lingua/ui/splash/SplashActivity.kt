@@ -1,5 +1,6 @@
 package com.deadely.it_lingua.ui.splash
 
+import android.os.Handler
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.base.BaseActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,11 +16,16 @@ class SplashActivity : BaseActivity(R.layout.activity_splash), SplashView {
 
     override fun initView(isUserActive: Boolean) {
         supportActionBar?.hide()
-        if (isUserActive) {
-            presenter.openMainScreen()
-        } else {
-            presenter.openRegScreen()
-        }
+        Handler().postDelayed(
+            {
+                if (isUserActive) {
+                    presenter.openMainScreen()
+                } else {
+                    presenter.openRegScreen()
+                }
+            },
+            1500
+        )
     }
 
     override fun setListeners() {}

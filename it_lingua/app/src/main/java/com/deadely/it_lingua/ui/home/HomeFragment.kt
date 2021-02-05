@@ -1,6 +1,10 @@
 package com.deadely.it_lingua.ui.home
 
 import android.graphics.Color
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.base.BaseFragment
@@ -9,6 +13,7 @@ import com.deadely.it_lingua.model.User
 import com.deadely.it_lingua.utils.formatLongToString
 import com.deadely.it_lingua.utils.formatString
 import com.deadely.it_lingua.utils.setActivityTitle
+import com.deadely.it_lingua.utils.snack
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -48,6 +53,48 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.account_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.mnu_account -> {
+                presenter.openAccountScreen()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun initView() {
+        setActivityTitle(R.string.title_home)
+        with(viewBinding) {
+            lcStats.apply {
+                description.isEnabled = false
+                setMaxVisibleValueCount(100)
+                setPinchZoom(false)
+                isDragEnabled = false
+                setTouchEnabled(false)
+                xAxis.apply {
+                    position = XAxis.XAxisPosition.BOTTOM
+                    textColor = Color.BLACK
+                    valueFormatter = DateValueFormatter
+                }
+                axisLeft.apply {
+                    setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+                    textColor = Color.BLACK
+                }
+                axisRight.isEnabled = false
+            }
+        }
+    }
+
     override fun setUserData(activeUser: User?) {
         activeUser?.let { user ->
             val values = arrayListOf<Entry>()
@@ -78,33 +125,11 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
         }
     }
 
-    override fun initView() {
-        setActivityTitle(R.string.title_home)
-        with(viewBinding) {
-            lcStats.apply {
-                description.isEnabled = false
-                setMaxVisibleValueCount(100)
-                setPinchZoom(false)
-                isDragEnabled = false
-                setTouchEnabled(true)
-                xAxis.apply {
-                    position = XAxis.XAxisPosition.BOTTOM
-                    textColor = Color.BLACK
-                    valueFormatter = DateValueFormatter
-                }
-                axisLeft.apply {
-                    setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
-                    textColor = Color.BLACK
-                }
-                axisRight.isEnabled = false
-            }
-        }
-    }
-
-    override fun getExtras() {
-    }
-
     override fun setListeners() {
+    }
+
+    override fun showError(error: String) {
+        viewBinding.nsvHomeContainer.snack(error)
     }
 
     override fun onBackButtonPressed() {

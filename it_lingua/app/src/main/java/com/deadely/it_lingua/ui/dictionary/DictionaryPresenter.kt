@@ -21,10 +21,11 @@ class DictionaryPresenter @Inject constructor(
     private var localList = listOf<Word>()
 
     override fun onFirstViewAttach() {
+        viewState.initView()
         getApiWords()
     }
 
-    private fun getApiWords() {
+    fun getApiWords() {
         viewState.showProgress(true)
         repository.getWords().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -51,10 +52,6 @@ class DictionaryPresenter @Inject constructor(
                 },
                 { e -> ErrorUtils.proceed(e) { viewState.showError(it) } }
             )
-    }
-
-    fun exit() {
-        router.replaceScreen(Screens.HOME_SCREEN())
     }
 
     fun addFavorite(word: Word) {
@@ -101,10 +98,6 @@ class DictionaryPresenter @Inject constructor(
         viewState.showProgress(false)
     }
 
-    fun getList() {
-        getApiWords()
-    }
-
     fun searchQuery(query: String?) {
         viewState.clearList()
         query?.let {
@@ -126,5 +119,9 @@ class DictionaryPresenter @Inject constructor(
         } else {
             viewState.setWordList(apiList)
         }
+    }
+
+    fun exit() {
+        router.replaceScreen(Screens.HOME_SCREEN())
     }
 }

@@ -11,12 +11,8 @@ abstract class BaseFragment(layout: Int) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getExtras()
         setListeners()
-        initView()
     }
 
-    abstract fun initView()
-    abstract fun getExtras()
     abstract fun setListeners()
 }

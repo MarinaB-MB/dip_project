@@ -64,9 +64,6 @@ class LessonsFragment : BaseFragment(R.layout.fragment_lessons), LessonsView {
         viewBinding.rlLessonsContainer.snack(error)
     }
 
-    override fun getExtras() {
-    }
-
     override fun onBackButtonPressed() {
         presenter.exit()
     }

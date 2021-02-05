@@ -64,9 +64,6 @@ class TestsFragment : BaseFragment(R.layout.fragment_tests), TestsView {
         viewBinding.rlTestsContainer.snack(error)
     }
 
-    override fun getExtras() {
-    }
-
     override fun onBackButtonPressed() {
         presenter.exit()
     }

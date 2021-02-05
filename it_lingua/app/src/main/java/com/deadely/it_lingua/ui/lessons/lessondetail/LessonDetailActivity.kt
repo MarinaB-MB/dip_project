@@ -1,17 +1,16 @@
 package com.deadely.it_lingua.ui.lessons.lessondetail
 
-import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.deadely.it_lingua.R
-import com.deadely.it_lingua.base.BaseFragment
+import com.deadely.it_lingua.base.BaseActivity
 import com.deadely.it_lingua.databinding.FragmentLessonDetailBinding
 import com.deadely.it_lingua.model.Lesson
 import com.deadely.it_lingua.utils.TITLE_LESSON_DETAIL
 import com.deadely.it_lingua.utils.makeGone
 import com.deadely.it_lingua.utils.makeVisible
-import com.deadely.it_lingua.utils.setActivityTitle
+import com.deadely.it_lingua.utils.snack
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_lesson_detail.*
 import moxy.ktx.moxyPresenter
@@ -19,30 +18,24 @@ import javax.inject.Inject
 import javax.inject.Provider
 
 @AndroidEntryPoint
-class LessonDetailFragment :
-    BaseFragment(R.layout.fragment_lesson_detail),
-    LessonDetailView {
+class LessonDetailActivity :
+    BaseActivity(R.layout.fragment_lesson_detail),
+    LessonDetailView,
+    BaseActivity.ExitPressedListener {
     private val viewBinding by viewBinding(
         FragmentLessonDetailBinding::bind
     )
 
-    companion object {
-        fun newInstance(lesson: Lesson) = LessonDetailFragment().apply {
-            arguments = Bundle().apply { putParcelable(TITLE_LESSON_DETAIL, lesson) }
-        }
-    }
-
     @Inject
     lateinit var provider: Provider<LessonDetailPresenter>
-    private val presenter by moxyPresenter { provider.get() }
+    private val presenter by moxyPresenter {
+        provider.get().apply { lesson = intent?.extras?.getParcelable(TITLE_LESSON_DETAIL) }
+    }
 
-    private val lesson: Lesson?
-        get() = arguments?.getParcelable(TITLE_LESSON_DETAIL)
-
-    override fun initView() {
+    override fun initView(lesson: Lesson?) {
         showProgress(true)
         lesson?.let {
-            setActivityTitle(it.title)
+            title = it.title
             webView.apply {
                 settings.javaScriptEnabled = true
                 settings.defaultTextEncodingName = "utf-8"
@@ -51,15 +44,16 @@ class LessonDetailFragment :
         }
     }
 
-    override fun getExtras() {
-    }
-
     override fun setListeners() {
         viewBinding.webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 showProgress(false)
             }
         }
+    }
+
+    override fun showError(error: String) {
+        viewBinding.webView.snack(error)
     }
 
     override fun showProgress(isShow: Boolean) {
@@ -72,11 +66,7 @@ class LessonDetailFragment :
         }
     }
 
-    override fun onBackButtonPressed() {
-        presenter.exit()
-    }
-
-    override fun exitPressed() {
+    override fun exit() {
         presenter.exit()
     }
 }

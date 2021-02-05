@@ -6,9 +6,11 @@ import com.deadely.it_lingua.model.StatCreateBody
 import com.deadely.it_lingua.model.Test
 import com.deadely.it_lingua.model.User
 import com.deadely.it_lingua.repository.Repository
-import com.deadely.it_lingua.utils.*
+import com.deadely.it_lingua.utils.ErrorUtils
+import com.deadely.it_lingua.utils.TEST_RESULT
+import com.deadely.it_lingua.utils.getCurrentDateWithoutTime
+import com.deadely.it_lingua.utils.subscribeAndObserve
 import moxy.InjectViewState
-import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
@@ -24,7 +26,7 @@ class TestDetailPresenter @Inject constructor(private val repository: Repository
         get() = test?.isChecked
 
     private var isEnd = false
-
+    private val date = getCurrentDateWithoutTime()
     fun exit() {
         if (isEnd) {
             router.sendResult(TEST_RESULT, if (isTestChecked == true) 0 else 1)
@@ -84,25 +86,46 @@ class TestDetailPresenter @Inject constructor(private val repository: Repository
             blockButtons()
             val activeUser = repository.getActiveUser()
             activeUser?.let { user ->
-                val countTest = user.stats?.last()?.countTests?.plus(1) ?: 0
-                val countLessons = user.stats?.last()?.countLessons ?: 0
-                val stat = StatCreateBody(
-                    formatWithPattern(Calendar.getInstance().time, PATTERN_3),
-                    countTest,
-                    countLessons
-                )
-                val updatedStats = user.stats?.toMutableList() ?: mutableListOf()
-                repository.createStat(stat).subscribeAndObserve()
-                    .subscribe(
-                        { stat ->
-                            updatedStats.add(stat)
-                            user.stats = updatedStats
-                            updateUsersStats(user)
-                        },
-                        { error -> ErrorUtils.proceed(error) { viewState.showError(it) } }
-                    )
+                val stat = createStatBody(user)
+
+                repository.getStatByDate(date)?.let {
+                    updateStat(it.id, stat)
+                } ?: run {
+                    createNewStat(user, stat)
+                }
             }
         }
+    }
+
+    private fun updateStat(id: String, stat: StatCreateBody) {
+        repository.updateStat(id, stat).subscribeAndObserve().subscribe(
+            { stat -> showResultDialog() },
+            { error -> ErrorUtils.proceed(error) { viewState.showError(it) } }
+        )
+    }
+
+    private fun createNewStat(user: User, stat: StatCreateBody) {
+        repository.createStat(stat).subscribeAndObserve()
+            .subscribe(
+                { stat ->
+                    val updatedStats = user.stats?.toMutableList() ?: mutableListOf()
+                    updatedStats.add(stat)
+                    user.stats = updatedStats
+                    updateUsersStats(user)
+                },
+                { error -> ErrorUtils.proceed(error) { viewState.showError(it) } }
+            )
+    }
+
+    private fun createStatBody(user: User): StatCreateBody {
+        val countTest = user.stats?.last()?.countTests?.plus(1) ?: 0
+        val countLessons = user.stats?.last()?.countLessons ?: 0
+
+        return StatCreateBody(
+            date,
+            countTest,
+            countLessons
+        )
     }
 
     private fun blockButtons() {
