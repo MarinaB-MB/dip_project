@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.model.Test
-import kotlinx.android.synthetic.main.fragment_home.view.tvTitle
 import kotlinx.android.synthetic.main.lesson_item.view.*
 
 class TestsAdapter : RecyclerView.Adapter<TestsAdapter.TestsViewHolder>() {

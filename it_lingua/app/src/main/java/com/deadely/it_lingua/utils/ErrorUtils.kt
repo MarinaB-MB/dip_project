@@ -1,19 +1,19 @@
 package com.deadely.it_lingua.utils
 
-import android.util.Log.e
 import com.deadely.it_lingua.App
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.model.neterror.ServerException
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
+import timber.log.Timber
 import java.net.UnknownHostException
 
 object ErrorUtils {
     private val gson = GsonBuilder().create()
 
     fun proceed(t: Throwable, body: (message: String) -> Unit = {}) {
-        e(this.javaClass.name, t.message.toString())
+        Timber.tag("ErrorUtils.Throwable: ").e(t.message.toString())
         when (t) {
             is HttpException -> {
                 val e = parseError(t)

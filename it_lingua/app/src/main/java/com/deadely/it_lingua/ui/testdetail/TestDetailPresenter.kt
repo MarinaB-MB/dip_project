@@ -142,7 +142,7 @@ class TestDetailPresenter @Inject constructor(private val repository: Repository
                 { e ->
                     ErrorUtils.proceed(e) {
                         viewState.showError(it)
-                        viewState.closeScreen()
+                        exit()
                     }
                 }
             )

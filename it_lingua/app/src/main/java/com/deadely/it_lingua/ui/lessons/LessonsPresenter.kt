@@ -18,7 +18,6 @@ class LessonsPresenter @Inject constructor(private val repository: Repository) :
 
     override fun onFirstViewAttach() {
         setResultListeners()
-        viewState.initView()
         getLessons()
     }
 
@@ -32,11 +31,12 @@ class LessonsPresenter @Inject constructor(private val repository: Repository) :
 
     private fun updateUserData() {
         val userId = repository.getActiveUser()?.id ?: ""
-        repository.getUserById(userId).subscribeAndObserve().subscribe(
+        repository.getUserById(userId).subscribeAndObserve().doFinally {
+            getLessons()
+            setResultListeners()
+        }.subscribe(
             { user ->
                 repository.saveActiveUser(user)
-                getLessons()
-                setResultListeners()
             },
             { error -> ErrorUtils.proceed(error) { viewState.showError(it) } }
         )
@@ -60,7 +60,7 @@ class LessonsPresenter @Inject constructor(private val repository: Repository) :
             data[i].isChecked = true
         }
         viewState.showProgress(false)
-        viewState.setLessonsList(data)
+        viewState.initView(data)
     }
 
     fun exit() {

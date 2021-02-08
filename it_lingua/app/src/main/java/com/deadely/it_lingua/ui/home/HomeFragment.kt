@@ -10,10 +10,7 @@ import com.deadely.it_lingua.R
 import com.deadely.it_lingua.base.BaseFragment
 import com.deadely.it_lingua.databinding.FragmentHomeBinding
 import com.deadely.it_lingua.model.User
-import com.deadely.it_lingua.utils.formatLongToString
-import com.deadely.it_lingua.utils.formatString
-import com.deadely.it_lingua.utils.setActivityTitle
-import com.deadely.it_lingua.utils.snack
+import com.deadely.it_lingua.utils.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.components.YAxis.AxisDependency
@@ -39,6 +36,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
 
     companion object {
         fun newInstance() = HomeFragment()
+        const val LESSON_MODE = "HomeFragment.Lesson"
+        const val TEST_MODE = "HomeFragment.Test"
     }
 
     object DateValueFormatter : ValueFormatter() {
@@ -74,6 +73,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
 
     override fun initView() {
         setActivityTitle(R.string.title_home)
+        showBottomNavView(true)
         with(viewBinding) {
             lcStats.apply {
                 description.isEnabled = false
@@ -95,19 +95,23 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
         }
     }
 
-    override fun setUserData(activeUser: User?) {
+    override fun setUserData(activeUser: User?, graphMode: String) {
         activeUser?.let { user ->
             val values = arrayListOf<Entry>()
             user.stats?.let {
+
                 for (stat in it) {
+                    val yCountValue =
+                        if (graphMode == LESSON_MODE) stat?.countLessons?.toFloat() else stat?.countTests?.toFloat()
                     values.add(
-                        Entry(
-                            formatString(stat?.date ?: ""),
-                            stat?.countTests?.toFloat() ?: 0F
-                        )
+                        Entry(formatString(stat?.date ?: ""), yCountValue ?: 0F)
                     )
                 }
-                val dataSet = LineDataSet(values, getString(R.string.tests_count_label)).apply {
+                val label =
+                    if (graphMode == LESSON_MODE) getString(R.string.checked_lessons_count_label) else getString(
+                        R.string.checked_words_count_label
+                    )
+                val dataSet = LineDataSet(values, label).apply {
                     axisDependency = AxisDependency.LEFT
                     color = ColorTemplate.getHoloBlue()
                     valueTextColor = ColorTemplate.getHoloBlue()
@@ -126,10 +130,28 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
     }
 
     override fun setListeners() {
+        with(viewBinding) {
+            llLessonsCount.setOnClickListener { presenter.changeGraphMode(LESSON_MODE) }
+            llTestsCount.setOnClickListener { presenter.changeGraphMode(TEST_MODE) }
+        }
     }
 
     override fun showError(error: String) {
         viewBinding.nsvHomeContainer.snack(error)
+    }
+
+    override fun showProgress(isShow: Boolean) {
+        if (isShow) {
+            viewBinding.apply {
+                llContent.makeGone()
+                pvLoad.makeVisible()
+            }
+        } else {
+            viewBinding.apply {
+                llContent.makeVisible()
+                pvLoad.makeGone()
+            }
+        }
     }
 
     override fun onBackButtonPressed() {

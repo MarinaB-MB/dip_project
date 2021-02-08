@@ -7,7 +7,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -44,3 +43,7 @@ fun View.snack(text: String) {
 
 fun <T> Single<T>.subscribeAndObserve(): Single<T> =
     subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+
+fun Fragment.showBottomNavView(isShow: Boolean) {
+    (activity as com.deadely.it_lingua.ui.main.MainActivity).showBottomNavView(isShow)
+}

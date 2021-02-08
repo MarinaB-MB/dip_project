@@ -21,7 +21,6 @@
     <string name="password_compare_error">Пароль не совпадает</string>
     <string name="name">Имя</string>
     <string name="incorrect_name_length_error">Длина имени не может превышать 16 символов</string>
-    <string name="tests_count_label">Tests Count</string>
     <string name="already_have_account">Уже есть аккаунт</string>
     <string name="user_statistic_title">Статистика пользователя</string>
     <string name="checked_lessons_count_label">Количество пройденных уроков</string>

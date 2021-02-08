@@ -26,12 +26,14 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
     @Inject
     lateinit var provider: Provider<DictionaryPresenter>
     private val presenter by moxyPresenter { provider.get() }
-    private val wordsAdapter = WordsAdapter()
-    private var isChecked = false
     private val viewBinding by viewBinding(
         FragmentDictionaryBinding::bind
     )
+
     private lateinit var favoriteMenuItem: MenuItem
+
+    private val wordsAdapter = WordsAdapter()
+    private var isChecked = false
 
     companion object {
         fun newInstance() = DictionaryFragment()
@@ -113,8 +115,7 @@ class DictionaryFragment : BaseFragment(R.layout.fragment_dictionary), Dictionar
                 presenter.deleteFavorites(word)
             }
 
-            override fun onItemClick(word: Word) {
-            }
+            override fun onItemClick(word: Word) {}
         })
         viewBinding.rvWords.apply {
             layoutManager = LinearLayoutManager(context)

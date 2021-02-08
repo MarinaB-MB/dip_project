@@ -6,10 +6,7 @@ import com.deadely.it_lingua.R
 import com.deadely.it_lingua.base.BaseFragment
 import com.deadely.it_lingua.databinding.FragmentLessonsBinding
 import com.deadely.it_lingua.model.Lesson
-import com.deadely.it_lingua.utils.makeGone
-import com.deadely.it_lingua.utils.makeVisible
-import com.deadely.it_lingua.utils.setActivityTitle
-import com.deadely.it_lingua.utils.snack
+import com.deadely.it_lingua.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import moxy.ktx.moxyPresenter
 import javax.inject.Inject
@@ -20,18 +17,13 @@ class LessonsFragment : BaseFragment(R.layout.fragment_lessons), LessonsView {
     @Inject
     lateinit var provider: Provider<LessonsPresenter>
     private val presenter by moxyPresenter { provider.get() }
-
-    private val lessonsAdapter = LessonsAdapter()
     private val viewBinding by viewBinding(
         FragmentLessonsBinding::bind
     )
+    private val lessonsAdapter = LessonsAdapter()
 
     companion object {
         fun newInstance() = LessonsFragment()
-    }
-
-    override fun initView() {
-        setActivityTitle(R.string.title_lessons)
     }
 
     override fun setListeners() {
@@ -46,7 +38,9 @@ class LessonsFragment : BaseFragment(R.layout.fragment_lessons), LessonsView {
         }
     }
 
-    override fun setLessonsList(data: List<Lesson>) {
+    override fun initView(data: List<Lesson>) {
+        setActivityTitle(R.string.title_lessons)
+        showBottomNavView(true)
         lessonsAdapter.setData(data)
     }
 

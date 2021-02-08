@@ -22,4 +22,8 @@ class AccountPresenter @Inject constructor(private val repository: Repository) :
     fun logout() {
         router.sendResult(ACCOUNT_RESULT, 1)
     }
+
+    fun exit() {
+        router.exit()
+    }
 }
