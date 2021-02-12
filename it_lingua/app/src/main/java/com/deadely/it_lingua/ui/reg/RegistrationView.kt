@@ -8,7 +8,7 @@ import moxy.viewstate.strategy.StateStrategyType
 interface RegistrationView : BaseView {
     fun setEmailError(error: String?)
     fun setPasswordError(error: String?)
-    fun showError(error: String)
     fun setNameError(error: String?)
+    fun showError(error: String)
     fun initView(regMode: Boolean)
 }

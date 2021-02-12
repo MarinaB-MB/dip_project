@@ -8,4 +8,7 @@ import moxy.viewstate.strategy.StateStrategyType
 @StateStrategyType(SkipStrategy::class)
 interface AccountView : BaseView {
     fun initView(user: User?)
+    fun showEditDialog(activeUser: User?)
+    fun showError(error: String)
+    fun showProgress(isShow: Boolean)
 }

@@ -1,28 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlAccountContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/rlContent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#28999999" />
-
-        <TextView
-            android:id="@+id/btnExit"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+        <RelativeLayout
+            android:id="@+id/rlDeleteAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="Выйти"
-            android:textColor="#04132E"
-            android:textSize="18sp" />
-    </LinearLayout>
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/ivDeleteAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_baseline_delete_24" />
+
+            <TextView
+                android:id="@+id/tvDeleteAcc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_vertical_margin"
+                android:layout_toRightOf="@id/ivDeleteAcc"
+                android:text="Удалить аккаунт"
+                android:textColor="#91000E"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlEditAcc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rlDeleteAcc"
+            android:background="?attr/selectableItemBackground"
+            android:padding="20dp">
+
+            <ImageView
+                android:id="@+id/ivEditAcc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_baseline_edit_24" />
+
+            <TextView
+                android:id="@+id/tvEditAcc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_vertical_margin"
+                android:layout_toEndOf="@id/ivEditAcc"
+                android:text="Редактировать пароль"
+                android:textColor="#222222"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#28999999" />
+
+            <TextView
+                android:id="@+id/btnExit"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="Выйти"
+                android:textColor="#04132E"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pvLoad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:indeterminateDrawable="@drawable/progress_bar"
+        android:progressDrawable="@drawable/progress_bar"
+        android:visibility="gone" />
 </RelativeLayout>

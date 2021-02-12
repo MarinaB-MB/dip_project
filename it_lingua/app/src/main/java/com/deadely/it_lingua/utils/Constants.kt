@@ -15,6 +15,7 @@ const val LESSON_RESULT = "lesson_result"
 const val TITLE_LESSON_DETAIL = "title_lesson_detail"
 const val TEST = "test"
 const val ACCOUNT_RESULT = "account_result"
+const val DELETE_ACCOUNT_RESULT = "delete_account_result"
 
 const val BASE_URL = "https://itldbexample-a04a.restdb.io/rest/"
 const val GET_USER = "users/{id}"

@@ -2,6 +2,7 @@ package com.deadely.it_lingua.network
 
 import com.deadely.it_lingua.model.*
 import com.deadely.it_lingua.utils.*
+import io.reactivex.Completable
 import io.reactivex.Single
 import retrofit2.http.*
 
@@ -13,7 +14,7 @@ interface RestService {
     fun getUserByEmail(@Query(QUERY) query: String): Single<List<User>>
 
     @DELETE(DELETE_USER)
-    fun deleteUserById(@Path(ID) id: String): User
+    fun deleteUserById(@Path(ID) id: String): Single<Completable>
 
     @POST(CREATE_USER)
     fun createUser(@Body requestBody: UserBody): Single<User>

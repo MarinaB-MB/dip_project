@@ -33,4 +33,5 @@
     <string name="end_test_confirm_title">Вы уверены, что хотите выйти?</string>
     <string name="unfortunately">К сожалению...</string>
     <string name="title_account">Профиль</string>
+    <string name="delete_account_confirm_title">Вы уверены, что хотитет удалить аккаунт?</string>
 </resources>

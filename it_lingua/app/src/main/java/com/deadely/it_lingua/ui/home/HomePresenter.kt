@@ -7,6 +7,7 @@ import com.deadely.it_lingua.navigation.Screens
 import com.deadely.it_lingua.navigation.Screens.ACCOUNT_SCREEN
 import com.deadely.it_lingua.repository.Repository
 import com.deadely.it_lingua.utils.ACCOUNT_RESULT
+import com.deadely.it_lingua.utils.DELETE_ACCOUNT_RESULT
 import com.deadely.it_lingua.utils.ErrorUtils
 import com.deadely.it_lingua.utils.subscribeAndObserve
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -32,6 +33,14 @@ class HomePresenter @Inject constructor(
         router.setResultListener(ACCOUNT_RESULT) {
             if ((it as Int) == 1) {
                 repository.clearActiveUser()
+                router.apply {
+                    finishChain()
+                    newRootScreen(Screens.REGISTRATION_SCREEN())
+                }
+            }
+        }
+        router.setResultListener(DELETE_ACCOUNT_RESULT) {
+            if ((it as Int) == 1) {
                 router.apply {
                     finishChain()
                     newRootScreen(Screens.REGISTRATION_SCREEN())

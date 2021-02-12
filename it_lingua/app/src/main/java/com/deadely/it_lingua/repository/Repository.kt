@@ -4,6 +4,7 @@ import com.deadely.it_lingua.database.dao.DictionaryDao
 import com.deadely.it_lingua.database.dao.UserDao
 import com.deadely.it_lingua.model.*
 import com.deadely.it_lingua.network.RestService
+import io.reactivex.Completable
 import io.reactivex.Single
 import javax.inject.Inject
 
@@ -21,12 +22,12 @@ class Repository @Inject constructor(
         return api.getUserByEmail("{\"email\":\"$email\"}")
     }
 
-    fun deleteUser(id: String): User {
+    fun deleteUser(id: String): Single<Completable> {
         return api.deleteUserById(id)
     }
 
-    fun updateUser(id: String, put: User): Single<User> {
-        return api.updateUser(id, put)
+    fun updateUser(put: User): Single<User> {
+        return api.updateUser(put.id, put)
     }
 
     fun createUser(requestBody: UserBody): Single<User> {

@@ -134,7 +134,7 @@ class TestDetailPresenter @Inject constructor(private val repository: Repository
     }
 
     private fun updateUsersStats(user: User) {
-        repository.updateUser(user.id, user).subscribeAndObserve()
+        repository.updateUser(user).subscribeAndObserve()
             .subscribe(
                 {
                     showResultDialog()

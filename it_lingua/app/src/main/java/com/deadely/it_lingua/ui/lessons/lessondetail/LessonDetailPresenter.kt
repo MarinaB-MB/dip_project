@@ -74,7 +74,7 @@ class LessonDetailPresenter @Inject constructor(private val repository: Reposito
     }
 
     private fun updateUsersStats(user: User) {
-        repository.updateUser(user.id, user).subscribeAndObserve().subscribe()
+        repository.updateUser(user).subscribeAndObserve().subscribe()
     }
 
     fun exit() {

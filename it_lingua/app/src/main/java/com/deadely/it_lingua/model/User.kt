@@ -16,7 +16,7 @@ data class User(
     @ColumnInfo(name = USER_ID)
     @SerializedName("_id") val id: String,
     @SerializedName("email") val email: String,
-    @SerializedName("password") val password: String,
+    @SerializedName("password") var password: String,
     @SerializedName("stats") var stats: List<Stat?>?,
     @SerializedName("active") var active: Boolean,
     @SerializedName("name") val name: String
