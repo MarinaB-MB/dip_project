@@ -14,8 +14,46 @@ class Repository @Inject constructor(
     private val dd: DictionaryDao
 ) {
 
+    /* fun getUserById(id: String): Single<User> {
+         return api.getUserById(id)
+     }*/
     fun getUserById(id: String): Single<User> {
-        return api.getUserById(id)
+        return Single.just(
+            User(
+                id = "100x",
+                email = "email@mail.ru",
+                password = "123456",
+                listOf(
+                    Stat(
+                        id = "1",
+                        date = "12.04.2021",
+                        countLessons = 1,
+                        countTests = 1
+                    ),
+                    Stat(
+                        id = "1",
+                        date = "13.04.2021",
+                        countLessons = 2,
+                        countTests = 1
+                    ),
+                    Stat(
+                        id = "1",
+                        date = "14.04.2021",
+                        countLessons = 2,
+                        countTests = 2
+                    ),
+                    Stat(
+                        id = "1",
+                        date = "18.04.2021",
+                        countLessons = 3,
+                        countTests = 2
+                    )
+
+                ),
+                active = true,
+                name = "namel"
+            )
+        )
     }
 
     fun getUserByEmail(email: String): Single<List<User>> {

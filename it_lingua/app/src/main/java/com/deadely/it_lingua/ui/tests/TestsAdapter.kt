@@ -28,7 +28,7 @@ class TestsAdapter : RecyclerView.Adapter<TestsAdapter.TestsViewHolder>() {
         parent: ViewGroup,
         viewType: Int
     ) = TestsViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.lesson_item, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.test_item, parent, false)
     )
 
     override fun onBindViewHolder(holder: TestsViewHolder, position: Int) =
@@ -42,11 +42,11 @@ class TestsAdapter : RecyclerView.Adapter<TestsAdapter.TestsViewHolder>() {
                 if (position != 0 && !list[position - 1].isChecked) {
                     isEnabled = false
                 }
-                tvTitle.text = test.title
+                tvLessonTitle.text = test.title
                 if (test.isChecked) {
                     ivChecked.setImageResource(R.drawable.ic_baseline_check_24_green)
                 } else {
-                    ivChecked.setImageResource(R.drawable.ic_baseline_check_24_gray)
+                    ivChecked.setImageResource(R.drawable.ic_baseline_check_24_white)
                 }
                 itemView.setOnClickListener { listener?.onItemClick(test) }
             }

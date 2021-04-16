@@ -34,7 +34,7 @@
 
     </style>
 
-    <style name="Fullscreen" parent="MainTheme">
+    <style name="Fullscreen" parent="Theme.It_lingua">
         <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

@@ -98,9 +98,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
     override fun setUserData(activeUser: User?, graphMode: String) {
         activeUser?.let { user ->
             val values = arrayListOf<Entry>()
-            user.stats?.let {
-
-                for (stat in it) {
+            if (!user.stats.isNullOrEmpty()) {
+                for (stat in user.stats!!) {
                     val yCountValue =
                         if (graphMode == LESSON_MODE) stat?.countLessons?.toFloat() else stat?.countTests?.toFloat()
                     values.add(
@@ -123,9 +122,9 @@ class HomeFragment : BaseFragment(R.layout.fragment_home), HomeView {
                 }
                 lcStats.data = data
                 lcStats.invalidate()
+                tvLessonCount.text = user.stats?.last()?.countLessons.toString()
+                tvTestsCount.text = user.stats?.last()?.countTests.toString()
             }
-            tvLessonCount.text = user.stats?.last()?.countLessons.toString()
-            tvTestsCount.text = user.stats?.last()?.countTests.toString()
         }
     }
 

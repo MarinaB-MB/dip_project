@@ -9,6 +9,6 @@ data class Lesson(
     @SerializedName("_id") val id: String,
     @SerializedName("title") val title: String,
     @SerializedName("content") val content: String,
+//    @SerializedName("description") val description: String,
     var isChecked: Boolean = false
 ) : Parcelable
-

@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.deadely.it_lingua.R
 import com.deadely.it_lingua.model.Word
-import com.deadely.it_lingua.utils.makeGone
-import com.deadely.it_lingua.utils.makeVisible
 import kotlinx.android.synthetic.main.word_item.view.*
 
 class WordsAdapter : RecyclerView.Adapter<WordsAdapter.WordsViewHolder>() {
@@ -47,7 +45,7 @@ class WordsAdapter : RecyclerView.Adapter<WordsAdapter.WordsViewHolder>() {
                 if (word.isFavorite) {
                     ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_red)
                 } else {
-                    ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_grey)
+                    ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_white)
                 }
                 ivFavorite.setOnClickListener {
                     word.isFavorite = !word.isFavorite
@@ -55,12 +53,11 @@ class WordsAdapter : RecyclerView.Adapter<WordsAdapter.WordsViewHolder>() {
                         ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_red)
                         listener?.doFavorite(word)
                     } else {
-                        ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_grey)
+                        ivFavorite.setImageResource(R.drawable.ic_baseline_favorite_white)
                         listener?.removeFromFavorite(word)
                     }
                 }
                 itemView.setOnClickListener { listener?.onItemClick(word) }
-                if (word == list.last()) vDivider.makeGone() else vDivider.makeVisible()
             }
         }
     }

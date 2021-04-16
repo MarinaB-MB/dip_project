@@ -34,4 +34,6 @@
     <string name="unfortunately">К сожалению...</string>
     <string name="title_account">Профиль</string>
     <string name="delete_account_confirm_title">Вы уверены, что хотитет удалить аккаунт?</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
 </resources>

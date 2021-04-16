@@ -1,89 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rlAccountContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/activity_vertical_margin">
 
-    <RelativeLayout
-        android:id="@+id/rlContent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.01" />
+
+    <ImageView
+        android:id="@+id/ivDeleteAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_baseline_delete_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topGL" />
+
+    <TextView
+        android:id="@+id/tvDeleteAcc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:padding="@dimen/activity_vertical_margin"
+        android:text="Удалить аккаунт"
+        android:textColor="#91000E"
+        android:textSize="16sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivDeleteAcc"
+        app:layout_constraintTop_toTopOf="@id/topGL" />
 
-        <RelativeLayout
-            android:id="@+id/rlDeleteAcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:padding="20dp">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/secondGL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
 
-            <ImageView
-                android:id="@+id/ivDeleteAcc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_baseline_delete_24" />
+    <ImageView
+        android:id="@+id/ivEditAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_vertical_margin"
+        android:src="@drawable/ic_baseline_edit_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/secondGL" />
 
-            <TextView
-                android:id="@+id/tvDeleteAcc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_vertical_margin"
-                android:layout_toRightOf="@id/ivDeleteAcc"
-                android:text="Удалить аккаунт"
-                android:textColor="#91000E"
-                android:textSize="16sp" />
-        </RelativeLayout>
+    <TextView
+        android:id="@+id/tvEditAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:padding="@dimen/activity_vertical_margin"
+        android:text="Редактировать пароль"
+        android:textColor="#222222"
+        android:textSize="16sp"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivEditAcc"
+        app:layout_constraintTop_toBottomOf="@+id/secondGL" />
 
-        <RelativeLayout
-            android:id="@+id/rlEditAcc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rlDeleteAcc"
-            android:background="?attr/selectableItemBackground"
-            android:padding="20dp">
-
-            <ImageView
-                android:id="@+id/ivEditAcc"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:src="@drawable/ic_baseline_edit_24" />
-
-            <TextView
-                android:id="@+id/tvEditAcc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_vertical_margin"
-                android:layout_toEndOf="@id/ivEditAcc"
-                android:text="Редактировать пароль"
-                android:textColor="#222222"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#28999999" />
-
-            <TextView
-                android:id="@+id/btnExit"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center"
-                android:text="Выйти"
-                android:textColor="#04132E"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/btnExit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Выйти"
+        android:textColor="#04132E"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ProgressBar
         android:id="@+id/pvLoad"
@@ -92,5 +87,96 @@
         android:layout_centerInParent="true"
         android:indeterminateDrawable="@drawable/progress_bar"
         android:progressDrawable="@drawable/progress_bar"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout><!--
+<RelativeLayout
+android:id="@+id/rlContent"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<RelativeLayout
+    android:id="@+id/rlDeleteAcc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/ivDeleteAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_delete_24" />
+
+    <TextView
+        android:id="@+id/tvDeleteAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@id/ivDeleteAcc"
+        android:text="Удалить аккаунт"
+        android:textColor="#91000E"
+        android:textSize="16sp" />
 </RelativeLayout>
+
+<RelativeLayout
+    android:id="@+id/rlEditAcc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/rlDeleteAcc"
+    android:background="?attr/selectableItemBackground"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/ivEditAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_baseline_edit_24" />
+
+    <TextView
+        android:id="@+id/tvEditAcc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/activity_vertical_margin"
+        android:layout_toEndOf="@id/ivEditAcc"
+        android:text="Редактировать пароль"
+        android:textColor="#222222"
+        android:textSize="16sp" />
+</RelativeLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#28999999" />
+
+    <TextView
+        android:id="@+id/btnExit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center"
+        android:text="Выйти"
+        android:textColor="#04132E"
+        android:textSize="18sp" />
+</LinearLayout>
+</RelativeLayout>
+
+<ProgressBar
+android:id="@+id/pvLoad"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_centerInParent="true"
+android:indeterminateDrawable="@drawable/progress_bar"
+android:progressDrawable="@drawable/progress_bar"
+android:visibility="gone" />-->

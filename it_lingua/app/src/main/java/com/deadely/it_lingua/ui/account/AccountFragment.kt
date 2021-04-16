@@ -38,8 +38,10 @@ class AccountFragment : BaseFragment(R.layout.activity_account), AccountView {
             btnExit.setOnClickListener {
                 presenter.logout()
             }
-            rlDeleteAcc.setOnClickListener { showConfirmDialog() }
-            rlEditAcc.setOnClickListener { presenter.openEditDialog() }
+            tvDeleteAcc.setOnClickListener { showConfirmDialog() }
+            ivDeleteAcc.setOnClickListener { showConfirmDialog() }
+            tvEditAcc.setOnClickListener { presenter.openEditDialog() }
+            ivEditAcc.setOnClickListener { presenter.openEditDialog() }
         }
     }
 
@@ -96,12 +98,20 @@ class AccountFragment : BaseFragment(R.layout.activity_account), AccountView {
         if (isShow) {
             viewBinding.apply {
                 pvLoad.makeVisible()
-                rlContent.makeGone()
+                btnExit.makeGone()
+                tvDeleteAcc.makeGone()
+                ivDeleteAcc.makeGone()
+                tvEditAcc.makeGone()
+                ivEditAcc.makeGone()
             }
         } else {
             viewBinding.apply {
                 pvLoad.makeGone()
-                rlContent.makeVisible()
+                btnExit.makeVisible()
+                tvDeleteAcc.makeVisible()
+                ivDeleteAcc.makeVisible()
+                tvEditAcc.makeVisible()
+                ivEditAcc.makeVisible()
             }
         }
     }
