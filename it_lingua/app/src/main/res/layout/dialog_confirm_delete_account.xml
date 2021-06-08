@@ -29,7 +29,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/btn_bg"
-            android:text="@string/chuck_yes" />
+            android:text="@string/yes" />
 
         <Button
             android:id="@+id/btnNo"
@@ -38,6 +38,6 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/btn_bg"
-            android:text="@string/chuck_no" />
+            android:text="@string/no" />
     </LinearLayout>
 </LinearLayout>

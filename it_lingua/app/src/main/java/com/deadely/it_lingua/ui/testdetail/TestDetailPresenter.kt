@@ -27,12 +27,18 @@ class TestDetailPresenter @Inject constructor(private val repository: Repository
 
     private var isEnd = false
     private val date = getCurrentDateWithoutTime()
-    fun exit() {
-        if (isEnd) {
-            router.sendResult(TEST_RESULT, if (isTestChecked == true) 0 else 1)
-            router.exit()
-        } else {
-            viewState.showEndConfirmDialog()
+    fun exit(confirmExit: Boolean = false) {
+        when {
+            isEnd -> {
+                router.sendResult(TEST_RESULT, if (isTestChecked == true) 0 else 1)
+                router.exit()
+            }
+            confirmExit -> {
+                router.exit()
+            }
+            else -> {
+                viewState.showEndConfirmDialog()
+            }
         }
     }
 
@@ -42,11 +48,19 @@ class TestDetailPresenter @Inject constructor(private val repository: Repository
     }
 
     private fun getCurrentAsk() {
-        ask = test?.asks?.get(askIndex)
-        ask?.let {
-            answers = it.answers.split(",").toMutableList()
-            setRightAnswer()
-            viewState.initView(ask, answers)
+        test?.let {
+            if (!test?.asks.isNullOrEmpty()) {
+                ask = test?.asks?.get(askIndex)
+                ask?.let {
+                    answers = it.answers.split(",").toMutableList()
+                    setRightAnswer()
+                    viewState.initView(ask, answers)
+                }
+            } else {
+                viewState.showErrorDialog()
+            }
+        } ?: run {
+            viewState.showErrorDialog()
         }
     }
 

@@ -2,10 +2,12 @@ package com.deadely.it_lingua.ui.testdetail
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.children
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -80,7 +82,7 @@ class TestDetailFragment :
         val builder = AlertDialog.Builder(context).apply { setView(dialogView) }.show()
         dialogView.findViewById<Button>(R.id.btnYes).setOnClickListener {
             builder.dismiss()
-            presenter.exit()
+            presenter.exit(true)
         }
         dialogView.findViewById<Button>(R.id.btnNo).setOnClickListener {
             builder.dismiss()
@@ -99,6 +101,17 @@ class TestDetailFragment :
             viewBinding.pvLoad.makeGone()
             viewBinding.rlContent.makeVisible()
         }
+    }
+
+    override fun showErrorDialog() {
+        AlertDialog.Builder(context)
+            .setCancelable(false)
+            .setMessage(getString(R.string.unexpected_error))
+            .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                dialog.dismiss()
+                presenter.exit(true)
+            }
+            .show()
     }
 
     override fun setListeners() {}

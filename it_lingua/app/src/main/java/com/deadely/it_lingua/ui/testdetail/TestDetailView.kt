@@ -13,4 +13,5 @@ interface TestDetailView : BaseView {
     fun showEndConfirmDialog()
     fun blockButtons()
     fun showProgress(isShow: Boolean)
+    fun showErrorDialog()
 }
