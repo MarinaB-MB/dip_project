@@ -1,5 +1,5 @@
 package com.deadely.it_lingua.utils
-
+// database constants
 const val ITL = "itlingua"
 const val STATS = "stats"
 const val STAT_ID = "stat_id"
@@ -10,6 +10,7 @@ const val USER_ID = "user_id"
 const val DICTIONARY_ID = "dictionary_id"
 const val LESSON_ID = "lesson_id"
 
+// screens results keys
 const val TEST_RESULT = "test_result"
 const val LESSON_RESULT = "lesson_result"
 const val TITLE_LESSON_DETAIL = "title_lesson_detail"
@@ -17,13 +18,15 @@ const val TEST = "test"
 const val ACCOUNT_RESULT = "account_result"
 const val DELETE_ACCOUNT_RESULT = "delete_account_result"
 
+// base url 
 const val BASE_URL = "https://itldbexample-a04a.restdb.io/rest/"
-const val GET_USER = "users/{id}"
+
+// endpoints
+const val GET_USER: String = "users/{id}"
 const val GET_USER_BY_EMAIL = "users"
 const val DELETE_USER = "users/{id}"
 const val UPDATE_USER = "users/{objectId}"
 const val CREATE_USER = "users"
-
 const val GET_WORDS = "word"
 const val GET_LESSONS = "lesson"
 const val GET_TESTS = "tests"

@@ -1,5 +1,6 @@
 package com.deadely.it_lingua.ui.lessons
 
+import android.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.deadely.it_lingua.R
@@ -42,6 +43,16 @@ class LessonsFragment : BaseFragment(R.layout.fragment_lessons), LessonsView {
         setActivityTitle(R.string.title_lessons)
         showBottomNavView(true)
         lessonsAdapter.setData(data)
+    }
+
+    override fun showPreviewDialog() {
+        AlertDialog.Builder(context)
+            .setCancelable(false)
+            .setMessage(getString(R.string.error_preview))
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     override fun showProgress(isShow: Boolean) {

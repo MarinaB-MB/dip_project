@@ -170,4 +170,7 @@ dependencies {
     // timber
     implementation 'com.jakewharton.timber:timber:4.7.1'
 
+    testImplementation 'com.google.truth:truth:1.1.2'
+    testImplementation "org.mockito:mockito-core:3.9.0"
+
 }

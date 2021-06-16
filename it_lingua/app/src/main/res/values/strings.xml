@@ -37,4 +37,5 @@
     <string name="no">Нет</string>
     <string name="yes">Да</string>
     <string name="ok">OK</string>
+    <string name="error_preview">На данном этапе эта функция недоступна</string>
 </resources>

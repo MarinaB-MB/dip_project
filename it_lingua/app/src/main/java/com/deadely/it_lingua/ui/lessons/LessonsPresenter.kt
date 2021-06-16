@@ -68,6 +68,10 @@ class LessonsPresenter @Inject constructor(private val repository: Repository) :
     }
 
     fun openDetailLesson(lesson: Lesson) {
-        router.navigateTo(Screens.LESSON_DETAIL_SCREEN(lesson))
+        if (lesson.content.isNotEmpty()) {
+            router.navigateTo(Screens.LESSON_DETAIL_SCREEN(lesson))
+        } else {
+            viewState.showPreviewDialog()
+        }
     }
 }

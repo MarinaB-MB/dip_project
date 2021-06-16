@@ -10,4 +10,5 @@ interface LessonsView : BaseView {
     fun showError(error: String)
     fun showProgress(isShow: Boolean)
     fun initView(data: List<Lesson>)
+    fun showPreviewDialog()
 }

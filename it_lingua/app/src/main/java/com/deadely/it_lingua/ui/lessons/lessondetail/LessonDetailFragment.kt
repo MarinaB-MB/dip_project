@@ -40,7 +40,17 @@ class LessonDetailFragment :
             setActivityTitle(it.title)
             showBottomNavView(false)
             webView.apply {
-                settings.javaScriptEnabled = true
+                setInitialScale(150)
+                with(settings) {
+                    displayZoomControls = false
+                    builtInZoomControls = false
+                    domStorageEnabled = true
+                    isVerticalScrollBarEnabled = false
+                    isHorizontalScrollBarEnabled = false
+                    allowContentAccess = true
+                    javaScriptEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = true
+                }
                 settings.defaultTextEncodingName = "utf-8"
                 loadData(it.content, "text/html; charset=UTF-8", "UTF-8")
             }

@@ -99,7 +99,7 @@ class RegistrationPresenter @Inject constructor(
     }
 
     private fun createUser(email: String, password: String, name: String) {
-        repository.createUser(
+        val createUserDisposable = repository.createUser(
             UserBody(
                 email = email,
                 name = name,
@@ -121,7 +121,7 @@ class RegistrationPresenter @Inject constructor(
     }
 
     private fun compareData(email: String, password: String) {
-        repository.getUserByEmail(email).subscribeOn(Schedulers.io())
+        val userByEmailDisposable = repository.getUserByEmail(email).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe(
                 { data ->
                     val user = data.firstOrNull()
