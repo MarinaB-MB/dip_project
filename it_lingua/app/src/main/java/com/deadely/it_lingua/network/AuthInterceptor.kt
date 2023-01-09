@@ -7,7 +7,7 @@ class AuthInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request().newBuilder()
             .addHeader(
-                "x-api-key", "0362370bf456d10a726b0512630d30863132b"
+                "x-api-key", "XXX"
             )
             .addHeader("Content-Type", "application/json")
             .addHeader("Cache-Control", "no-cache")
